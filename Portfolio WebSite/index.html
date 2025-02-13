@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Portfolio Website</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .material-icons-outlined {
+        vertical-align: middle;
+        line-height: 1px;
+      }
+
+      .navbar-brand > .material-icons-outlined {
+        font-size: 40px;
+      }
+
+      .about > .material-icons-outlined {
+        font-size: 50px;
+      }
+
+      .card > img {
+        height: 250px;
+      }
+
+      .testimonial > img {
+        height: 50px;
+        width: 50px;
+      }
+
+      #map {
+        height: 300px;
+      }
+
+      /* Progress Bar Styles */
+      .progress-bar {
+        width: 0; /* Start at 0% */
+        transition: width 1.5s ease; /* Smooth transition */
+      }
+
+      .project-card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      /* Footer Styling */
+
+      /* Footer Styling */
+      footer {
+        background: linear-gradient(to right, #1e1e1e, #333);
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+      }
+
+      /* Social Media Icons */
+      .social-icons {
+        margin-bottom: 15px; /* Spacing below icons */
+      }
+
+      .social-icons a {
+        margin: 0 10px;
+        display: inline-block;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .social-icons img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        padding: 5px;
+      }
+
+      .social-icons a:hover {
+        transform: scale(1.2);
+      }
+
+      /* Copyright Text */
+      .copyright-text {
+        font-size: 14px;
+        margin-bottom: 15px; /* Spacing below copyright */
+      }
+
+      /* Resume Button */
+      .resume-btn {
+        /* background-color: #065794; */
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 10px 20px;
+        transition: all 0.3s ease-in-out;
+        display: inline-block;
+      }
+
+      .resume-btn:hover {
+        background-color: #1e32ea;
+        transform: scale(1.1);
+      }
+      /* button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #f0f0f0;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid px-0">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+            <span class="material-icons-outlined me-1">important_devices</span>
+            Jawahar Web Developer
+          </a>
+          <button
+            type="button"
+            class="navbar-toggler"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="container px-3">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link me-lg-3" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-lg-3" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-lg-3" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-lg-3" href="#projects">Projects</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link me-lg-3" href="#testimonials"
+                    >Testimonials</a
+                  >
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link me-lg-3" href="#contact">Contact</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <!-- Hero -->
+      <header class="bg-light py-5">
+        <div class="container px-5">
+          <div class="row align-items-center">
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+              <div class="my-5">
+                <h2 class="text-center fw-bold mb-2">Hi! I am Jawahar,</h2>
+                <h2 class="text-primary text-center fw-bold mb-2">
+                  a full-stack web developer
+                </h2>
+                <p class="lead text-muted mb-4">
+                  I specialize in building web applications using HTML, CSS, PHP
+                  and Flutter Mobile App Developer with Dart. Scroll down to see
+                  what I have been working on.
+                </p>
+                <div class="d-grid gap-3 d-sm-flex justify-content-center">
+                  <a
+                    class="btn btn-primary btn-large text-uppercase"
+                    href="#about"
+                  >
+                    Learn More
+                    <span class="material-icons-outlined ms-2"
+                      >help_outline</span
+                    >
+                  </a>
+                  <a
+                    class="btn btn-outline-primary btn-large text-uppercase"
+                    href="#projects"
+                  >
+                    View My Work
+                    <span class="material-icons-outlined ms-2"
+                      >manage_search</span
+                    >
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5 col-xxl-6 justify-content-center">
+              <img
+                class="img-fluid rounded-3 my-5"
+                src="images/hero.jpg"
+                alt="Hero Image"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- End Hero -->
+
+      <main>
+        <!-- About -->
+        <section id="about" class="text-center py-5">
+          <div class="container py-5">
+            <div class="row justify-content-center">
+              <h2 class="fw-bold">About</h2>
+              <p class="lead text-muted mb-5">
+                I am a freelance web developer who builds elegant, fast, and
+                scalable web applications.
+              </p>
+            </div>
+          </div>
+          <div class="container mb-5">
+            <div class="row">
+              <div class="col-lg-4 mx-auto mb-5">
+                <div class="d-flex mb-5 about">
+                  <span class="material-icons-outlined m-auto text-primary"
+                    >palette</span
+                  >
+                </div>
+                <h5>Design</h5>
+                <p class="text-muted mb-0">
+                  I create beautiful, modern designs optimized for multiple
+                  color modes (light and dark themes).
+                </p>
+              </div>
+              <div class="col-lg-4 mx-auto mb-5">
+                <div class="d-flex mb-5 about">
+                  <span class="material-icons-outlined m-auto text-primary"
+                    >code</span
+                  >
+                </div>
+                <h5>Development</h5>
+                <p class="text-muted mb-0">
+                  I develop responsive, scalable, and fast applications using
+                  the best standards and coding practices.
+                </p>
+              </div>
+              <div class="col-lg-4 mx-auto mb-5">
+                <div class="d-flex mb-5 about">
+                  <span class="material-icons-outlined m-auto text-primary"
+                    >settings</span
+                  >
+                </div>
+                <h5>Launch & Maintenance</h5>
+                <p class="text-muted mb-0">
+                  Once the application is ready, I will help you launch it and
+                  teach you how to update and maintain it.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- End About -->
+
+        <hr />
+
+        <!-- Skills -->
+        <div class="container mt-5" id="skills">
+          <h2 class="text-center fade-in">My Skills</h2>
+          <div class="row">
+            <div class="col-md-12 fade-in">
+              <p>HTML</p>
+              <div class="progress">
+                <div
+                  class="progress-bar bg-primary"
+                  role="progressbar"
+                  data-width="90%"
+                ></div>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3 fade-in">
+              <p>CSS</p>
+              <div class="progress">
+                <div
+                  class="progress-bar bg-success"
+                  role="progressbar"
+                  data-width="85%"
+                ></div>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3 fade-in">
+              <p>JavaScript</p>
+              <div class="progress">
+                <div
+                  class="progress-bar bg-warning"
+                  role="progressbar"
+                  data-width="80%"
+                ></div>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3 fade-in">
+              <p>React</p>
+              <div class="progress">
+                <div
+                  class="progress-bar bg-danger"
+                  role="progressbar"
+                  data-width="75%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- End Skills -->
+
+        <hr />
+
+        <!-- Projects -->
+        <div class="container mt-5" id="projects">
+          <h2 class="text-center fade-in">Projects</h2>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card text-center project-card">
+                <img
+                  src="images/project1.jpg"
+                  class="card-img-top"
+                  alt="Project 1"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Project 1</h5>
+                  <p class="card-text short-text">
+                    The Electricity Bill Calculator is a web-based application
+                    designed to help users estimate their monthly electricity
+                    costs...
+                  </p>
+                  <p class="card-text full-text d-none">
+                    The Electricity Bill Calculator is a web-based application
+                    designed to help users estimate their monthly electricity
+                    costs based on their consumption. Users can input their
+                    previous and current meter readings, and the system
+                    calculates the total unit consumption. The application then
+                    applies Ceylon Electricity Board rates, taxes, and
+                    surcharges to estimate the total bill.
+                  </p>
+                  <button class="btn btn-primary read-more-btn">
+                    Read More
+                  </button>
+                  <a
+                    href="https://github.com/jawajawahar/ElectricityBillCalculator"
+                    target="_blank"
+                    class="btn btn-dark"
+                  >
+                    <i class="bi bi-github"></i> View on GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card text-center project-card">
+                <img
+                  src="images/project2.jpg"
+                  class="card-img-top"
+                  alt="Project 2"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Project 2</h5>
+                  <p class="card-text short-text">
+                    The BMI & Medication Reminder App is a mobile application
+                    developed using Dart and Flutter to help users manage their
+                    health...
+                  </p>
+                  <p class="card-text full-text d-none">
+                    The BMI & Medication Reminder App is a mobile application
+                    developed using Dart and Flutter to help users manage their
+                    health effectively. The app includes a BMI calculator,
+                    allowing users to input their height and weight to determine
+                    their Body Mass Index (BMI) and receive health insights
+                    based on their BMI category. Additionally, the app features
+                    a medication reminder system, enabling users to set alerts
+                    for their medication schedules to ensure timely intake. With
+                    a user-friendly interface, this app serves as a valuable
+                    tool for promoting healthy living and medication adherence.
+                  </p>
+                  <button class="btn btn-primary read-more-btn">
+                    Read More
+                  </button>
+                  <a
+                    href="https://github.com/jawajawahar/HealthApp"
+                    target="_blank"
+                    class="btn btn-dark"
+                  >
+                    <i class="bi bi-github"></i> View on GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card text-center project-card">
+                <img
+                  src="images/project3.png"
+                  class="card-img-top"
+                  alt="Project 3"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Project 3</h5>
+                  <p class="card-text short-text">
+                    The Portfolio Website is a personal website designed to
+                    showcase projects, skills, and achievements...
+                  </p>
+                  <p class="card-text full-text d-none">
+                    The Portfolio Website is a personal website designed to
+                    showcase projects, skills, and achievements. Built with a
+                    modern and responsive design, it provides visitors with an
+                    interactive experience to explore the user's work. Key
+                    sections include an about me section, a projects showcase, a
+                    skills overview, and contact information. The site
+                    integrates GitHub links for project repositories, ensuring
+                    easy access to source code. This portfolio serves as a
+                    professional online presence, highlighting expertise in
+                    software development and project accomplishments. 🚀
+                  </p>
+                  <button class="btn btn-primary read-more-btn">
+                    Read More
+                  </button>
+                  <a
+                    href="https://github.com/jawajawahar/project3"
+                    target="_blank"
+                    class="btn btn-dark"
+                  >
+                    <i class="bi bi-github"></i> View on GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Projects -->
+
+        <hr />
+
+        <!-- Contact -->
+        <section id="contact" class="py-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 text-center mb-4">
+                <h2 class="fw-bold">Contact Me</h2>
+                <p>
+                  If you have any questions or would like to get in touch, feel
+                  free to send me a message using the form below.
+                </p>
+              </div>
+
+              <div class="col-md-8 mx-auto">
+                <!-- Contact Form -->
+                <form id="contact-form">
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      name="name"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea
+                      class="form-control"
+                      id="message"
+                      name="message"
+                      rows="5"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Send Message
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- End Contact -->
+      </main>
+    </div>
+
+    <hr />
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <!-- Social Media Icons -->
+        <div class="social-icons">
+          <a href="https://www.facebook.com/JR.7MS.7" target="_blank">
+            <img src="images/facebook-icon.png" alt="Facebook" />
+          </a>
+          <a
+            href="https://www.instagram.com/jawajawaharsha?igsh=MXdnOXJoYzAwZmdsMg=="
+            target="_blank"
+          >
+            <img src="images/instagram-icon.png" alt="Instagram" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/jawahar-jawa-115389259"
+            target="_blank"
+          >
+            <img src="images/linkedin_icon.png" alt="LinkedIn" />
+          </a>
+        </div>
+
+        <!-- Copyright Text -->
+        <p class="copyright-text">
+          &copy; 2025 Your Name. All Rights Reserved.
+        </p>
+
+        <!-- Resume Download Button -->
+        <a href="your-resume.pdf" download class="btn resume-btn bg-white"
+          >📄 Download My Resume</a
+        >
+      </div>
+    </footer>
+
+    <!-- End Footer -->
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray(".progress-bar").forEach((bar) => {
+          gsap.fromTo(
+            bar,
+            { width: "0%" },
+            {
+              width: bar.getAttribute("data-width"),
+              duration: 1.5,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: bar,
+                start: "top 90%", // Animation starts when 90% of the bar is visible
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+      });
+
+      document.querySelectorAll(".read-more-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const cardBody = this.parentElement;
+          const shortText = cardBody.querySelector(".short-text");
+          const fullText = cardBody.querySelector(".full-text");
+          if (fullText.classList.contains("d-none")) {
+            fullText.classList.remove("d-none");
+            shortText.classList.add("d-none");
+            this.textContent = "Read Less";
+          } else {
+            fullText.classList.add("d-none");
+            shortText.classList.remove("d-none");
+            this.textContent = "Read More";
+          }
+        });
+      });
+
+      (function () {
+        emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS Public Key
+      })();
+
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          emailjs
+            .send("service_s60hpdb", "template_7hrtl2v", {
+              name: document.getElementById("name").value,
+              email: document.getElementById("email").value,
+              message: document.getElementById("message").value,
+            })
+            .then(
+              function (response) {
+                alert("Message sent successfully!");
+                document.getElementById("contact-form").reset();
+              },
+              function (error) {
+                alert("Failed to send message. Please try again.");
+              }
+            );
+        });
+
+      document
+        .getElementById("socialButton")
+        .addEventListener("click", function () {
+          const icons = document.getElementById("socialIcons");
+          icons.classList.toggle("show-icons"); // Add or remove animation class
+        });
+    </script>
+
+    <!-- <script src="scripts.js"></script> -->
+  </body>
+</html>
