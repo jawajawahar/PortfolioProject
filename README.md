@@ -17,10 +17,8 @@
 ✅ Contact form for inquiries  
 
 ## 🛠️ Built With
-- **HTML5, CSS3, JavaScript**
-- **React.js / Vue.js / Bootstrap (if used)**
-- **Backend (if any, e.g., Node.js, PHP, Firebase)**
+- HTML5, CSS3, JavaScript
+- Vue.js / Bootstrap
 
-## 📂 Installation (If Open-Source)
 
 
