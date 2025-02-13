@@ -22,7 +22,5 @@
 - **Backend (if any, e.g., Node.js, PHP, Firebase)**
 
 ## 📂 Installation (If Open-Source)
-```sh
-git clone https://github.com/your-username/your-portfolio.git
-cd your-portfolio
-open index.html
+
+
