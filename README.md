@@ -5,7 +5,7 @@
 🚀 Welcome to my personal portfolio! This website showcases my projects, skills, and experiences as a software engineer.
 
 ## 🔗 Live Demo
-🔗 [Visit My Portfolio]([https://jawajawahar.github.io/](https://github.com/jawajawahar/PortfolioProject/tree/main))
+🔗 [Visit My Portfolio]((https://github.com/jawajawahar/PortfolioProject/tree/main))
 
 ## 📸 Screenshots
 ![Portfolio Preview](screenshot.png)
